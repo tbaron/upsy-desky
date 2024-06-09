@@ -45,7 +45,7 @@ substitutions:
   button_m_pin: "18"
 
   # Runtime Config Defaults
-  default_height_units: "in" # Must be "in" or "cm"
+  standing_desk_height_units: "in" # Must be "in" or "cm"
 
 packages:
   standing_desk: github://tjhorner/esphome-standing-desk/configs/template.yaml

@@ -8,13 +8,15 @@ select:
     options:
       - in
       - cm
-    initial_option: ${default_height_units}
+    initial_option: ${standing_desk_height_units}
     on_value:
       then:
         lambda: |
           const char *unit = id(height_units_config)->state.c_str();
           id(desk_height)->set_unit_of_measurement(unit);
           id(target_desk_height)->traits.set_unit_of_measurement(unit);
+          id(target_desk_height_max)->traits.set_unit_of_measurement(unit);
+          id(target_desk_height_min)->traits.set_unit_of_measurement(unit);
 
 button:
   - platform: template
@@ -29,7 +31,9 @@ button:
 
 number:
   - platform: template
+    id: target_desk_height_min
     name: "Min Target Height"
+    device_class: distance
     entity_category: "config"
     min_value: 0
     max_value: 150
@@ -37,12 +41,15 @@ number:
     optimistic: true
     restore_value: true
     initial_value: ${standing_desk_min_height}
+    unit_of_measurement: ${standing_desk_height_units}
     on_value:
       then:
         lambda: |
           id(target_desk_height)->traits.set_min_value(x);
   - platform: template
+    id: target_desk_height_max
     name: "Max Target Height"
+    device_class: distance
     entity_category: "config"
     min_value: 0
     max_value: 150
@@ -50,6 +57,7 @@ number:
     optimistic: true
     restore_value: true
     initial_value: ${standing_desk_max_height}
+    unit_of_measurement: ${standing_desk_height_units}
     on_value:
       then:
         lambda: |
